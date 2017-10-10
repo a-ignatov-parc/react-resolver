@@ -1,17 +1,19 @@
-import assert from "assert";
+/* global describe it */
 
-import * as index from "../src";
+import assert from 'assert';
 
-describe("Resolver", function() {
-  describe("exports", function() {
+import * as index from '../src';
+
+describe('Resolver', () => {
+  describe('exports', () => {
     const expected = [
-      "client",
-      "context",
-      "resolve",
-      "Resolver",
+      'client',
+      'context',
+      'resolve',
+      'Resolver',
     ];
 
-    it(`should export ${expected}`, function() {
+    it(`should export ${expected}`, () => {
       assert.deepEqual(Object.keys(index), expected);
     });
   });

@@ -1,23 +1,22 @@
-import React from "react";
+import React from 'react';
 
-import Resolver from "./Resolver";
+import Resolver from './Resolver';
 
-const capitalize = (word) => {
-  return word.replace(/^./, (letter) => letter.toUpperCase());
-};
+const capitalize = word => word.replace(/^./, letter => letter.toUpperCase());
 
 export default function resolve(prop, promise) {
   const asyncProps = (arguments.length === 1) ? prop : { [prop]: promise };
-  const asyncNames = Object.keys(asyncProps).map(capitalize).join("");
+  const asyncNames = Object.keys(asyncProps).map(capitalize).join('');
 
   return function resolveDecorator(Component) {
+    // eslint-disable-next-line react/prefer-stateless-function
     return class PropResolver extends React.Component {
-      static displayName = `${asyncNames}Resolver`
+      static displayName = `${asyncNames}Resolver`;
 
       render() {
         return (
           <Resolver props={this.props} resolve={asyncProps}>
-            {(resolved) => <Component {...this.props} {...resolved} />}
+            {resolved => <Component {...this.props} {...resolved} />}
           </Resolver>
         );
       }
