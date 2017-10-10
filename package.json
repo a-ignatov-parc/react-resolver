@@ -2,28 +2,9 @@
   "name": "react-resolver",
   "version": "3.1.0",
   "description": "Async-rendering & data-fetching for universal React applications",
-  "main": "dist/index.js",
+  "main": "dist",
   "directories": {
     "test": "test"
-  },
-  "peerDependencies": {
-    "react": "^0.14.6 || ^15.0.0-0 || ^16.0.0",
-    "react-dom": "^0.14.6 || ^15.0.0-0 || ^16.0.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "eslint-config-future": "^2.1.1",
-    "gitbook-cli": "^2.3.2",
-    "gitbook-plugin-prism": "^2.3.0",
-    "gitbook-plugin-todo": "^0.1.3",
-    "mocha": "^4.0.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
   },
   "scripts": {
     "build": "npm run clean && npm run build:docs && npm run build:lib",
@@ -61,5 +42,23 @@
   "homepage": "https://github.com/ericclemmons/react-resolver",
   "dependencies": {
     "prop-types": "^15.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint-config-future": "^2.1.1",
+    "gitbook-cli": "^2.3.2",
+    "gitbook-plugin-prism": "^2.3.0",
+    "gitbook-plugin-todo": "^0.1.3",
+    "mocha": "^4.0.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "peerDependencies": {
+    "react": "^0.14.6 || ^15.0.0-0 || ^16.0.0",
+    "react-dom": "^0.14.6 || ^15.0.0-0 || ^16.0.0"
   }
 }
