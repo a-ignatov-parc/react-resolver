@@ -4,7 +4,12 @@ import { renderToStaticMarkup } from "react-dom/server";
 
 import { resolve, Resolver } from "..";
 
-const Test = resolve("resolved", ({ actual }) => actual)(({ expected, resolved }) => {
+const Test = resolve("resolved", ({ actual }) => actual)(props => {
+  const {
+    expected,
+    resolved,
+  } = props;
+
   assert.equal(resolved, expected);
 
   return (
@@ -14,7 +19,7 @@ const Test = resolve("resolved", ({ actual }) => actual)(({ expected, resolved }
   );
 });
 
-describe("@resolve", function() {
+describe("resolve HOC", function() {
   it("wraps Component name", function() {
     assert.equal(Test.displayName, "ResolvedResolver");
   });
@@ -34,14 +39,21 @@ describe("@resolve", function() {
 
   context("with a Promise ", function() {
     it("resolves", function() {
-      return Resolver.resolve(() => <Test actual={Promise.resolve("promise")} expected="promise" />);
+      return Resolver.resolve(() => (
+        <Test
+          actual={Promise.resolve("promise")}
+          expected="promise"
+        />
+      ));
     });
 
     it("is asynchronous", function() {
-      assert.equal(
-        renderToStaticMarkup(<Test actual={Promise.resolve("promise")} expected="promise" />),
-        ""
-      );
+      assert.equal(renderToStaticMarkup((
+        <Test
+          actual={Promise.resolve("promise")}
+          expected="promise"
+        />
+      )), "");
     });
   });
 
@@ -51,14 +63,21 @@ describe("@resolve", function() {
     };
 
     it("resolves", function() {
-      return Resolver.resolve(() => <Test actual={thenable} expected="thenable" />);
+      return Resolver.resolve(() => (
+        <Test
+          actual={thenable}
+          expected="thenable"
+        />
+      ));
     });
 
     it("is asynchronous", function() {
-      assert.equal(
-        renderToStaticMarkup(<Test actual={thenable} expected="thenable" />),
-        ""
-      );
+      assert.equal(renderToStaticMarkup((
+        <Test
+          actual={thenable}
+          expected="thenable"
+        />
+      )), "");
     });
   });
 });
