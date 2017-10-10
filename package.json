@@ -7,23 +7,28 @@
     "test": "test"
   },
   "peerDependencies": {
-    "react": "^0.14.6 || ^15.0.0-0",
-    "react-dom": "^0.14.6 || ^15.0.0-0"
+    "react": "^0.14.6 || ^15.0.0-0 || ^16.0.0",
+    "react-dom": "^0.14.6 || ^15.0.0-0 || ^16.0.0"
   },
   "devDependencies": {
-    "babel": "5.8.34",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint-config-future": "^2.1.1",
-    "gitbook-cli": "2.3.0",
-    "gitbook-plugin-prism": "^1.1.0",
-    "gitbook-plugin-todo": "0.1.2",
-    "mocha": "2.3.4",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "gitbook-cli": "^2.3.2",
+    "gitbook-plugin-prism": "^2.3.0",
+    "gitbook-plugin-todo": "^0.1.3",
+    "mocha": "^4.0.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "scripts": {
     "build": "npm run clean && npm run build:docs && npm run build:lib",
     "build:docs": "gitbook build -g ericclemmons/react-resolver",
-    "build:lib": "babel --out-dir dist src",
+    "build:lib": "babel src --out-dir dist",
     "clean": "npm run clean:docs && npm run clean:lib",
     "clean:docs": "rm -rf _book",
     "clean:lib": "rm -rf dist",
@@ -53,5 +58,8 @@
   "bugs": {
     "url": "https://github.com/ericclemmons/react-resolver/issues"
   },
-  "homepage": "https://github.com/ericclemmons/react-resolver"
+  "homepage": "https://github.com/ericclemmons/react-resolver",
+  "dependencies": {
+    "prop-types": "^15.6.0"
+  }
 }

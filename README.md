@@ -41,13 +41,13 @@ This makes components _pure_, _stateless_, and _easy to test_ as a result.
 _For environments that don't have native `Promise` support,
 install [ES6 Promise](https://github.com/jakearchibald/es6-promise)._
 
-```shell
+```bash
 $ npm install --save react-resolver
 ```
 
 _For React v0.13 support, install [v2.x.x](https://github.com/ericclemmons/react-resolver/tree/v2.0.5)._
 
-```shell
+```bash
 $ npm install --save react-resolver@2
 ```
 
@@ -67,7 +67,7 @@ Complete documentation can be found here:
 If you'd like to contribute to this project, all you need to do is clone
 this project and run:
 
-```shell
+```bash
 $ npm install
 $ npm test
 ```

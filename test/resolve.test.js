@@ -4,22 +4,15 @@ import { renderToStaticMarkup } from "react-dom/server";
 
 import { resolve, Resolver } from "..";
 
-@resolve("resolved", ({ actual }) => actual)
-class Test extends React.Component {
-  static displayName = "Test"
+const Test = resolve("resolved", ({ actual }) => actual)(({ expected, resolved }) => {
+  assert.equal(resolved, expected);
 
-  render() {
-    const { expected, resolved } = this.props;
-
-    assert.equal(resolved, expected);
-
-    return (
-      <pre>
-        {resolved}
-      </pre>
-    );
-  }
-}
+  return (
+    <pre>
+      {resolved}
+    </pre>
+  );
+});
 
 describe("@resolve", function() {
   it("wraps Component name", function() {

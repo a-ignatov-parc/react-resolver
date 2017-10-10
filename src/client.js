@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Resolver from "./Resolver";
 
@@ -8,11 +9,11 @@ export default function client(Loader) {
       static displayName = `ClientResolver`
 
       static childContextTypes = {
-        resolver: React.PropTypes.instanceOf(Resolver),
+        resolver: PropTypes.instanceOf(Resolver),
       }
 
       static contextTypes = {
-        resolver: React.PropTypes.instanceOf(Resolver),
+        resolver: PropTypes.instanceOf(Resolver),
       }
 
       constructor(props, context) {

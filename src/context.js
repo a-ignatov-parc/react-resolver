@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-export default function context(name, type = React.PropTypes.any.isRequired) {
+export default function context(name, type = PropTypes.any.isRequired) {
   return function contextDecorator(Component) {
     class ContextDecorator extends React.Component {
       static contextTypes = {

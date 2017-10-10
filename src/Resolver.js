@@ -2,6 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import {renderToStaticMarkup} from "react-dom/server";
 
 const ID = "ReactResolver.ID";
@@ -12,11 +13,11 @@ const PAYLOAD = "__REACT_RESOLVER_PAYLOAD__";
 
 export default class Resolver extends React.Component {
   static childContextTypes = {
-    resolver: React.PropTypes.instanceOf(Resolver),
+    resolver: PropTypes.instanceOf(Resolver),
   }
 
   static contextTypes = {
-    resolver: React.PropTypes.instanceOf(Resolver),
+    resolver: PropTypes.instanceOf(Resolver),
   }
 
   static defaultProps = {
@@ -28,14 +29,14 @@ export default class Resolver extends React.Component {
   static displayName = "Resolver"
 
   static propTypes = {
-    children: React.PropTypes.func.isRequired,
-    data: React.PropTypes.object.isRequired,
-    props: React.PropTypes.object,
-    resolve: React.PropTypes.object,
+    children: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    props: PropTypes.object,
+    resolve: PropTypes.object,
   }
 
   static render = function(render, node, data = window[PAYLOAD]) {
-    ReactDOM.render((
+    ReactDOM.hydrate((
       <Resolver data={data}>
         {render}
       </Resolver>
