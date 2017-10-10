@@ -74,8 +74,7 @@ jobs:
           command: |
             mkdir -p ~/junit
             npm run test -- --reporter mocha-junit-reporter
-          environment:
-            MOCHA_FILE: junit/test-results.xml
+            cp test-results.xml ~/junit
           when: always
       - store_test_results:
           path: ~/junit
@@ -97,13 +96,13 @@ jobs:
           paths:
             - dist
 
-  deploy:
+  publish:
     <<: *job-configuration
     steps:
       - attach_workspace:
           at: ./
       - run:
-          name: Publish to npm
+          name: Prepare .npmrc
           command: |
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       - run:
@@ -152,7 +151,7 @@ jobs:
 workflows:
   version: 2
 
-  build-and-deploy:
+  build-and-publish:
     jobs:
       - install-deps:
           filters:
@@ -166,16 +165,16 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - approve-deploy:
+      - approve-publish:
           type: approval
           requires:
             - build
           filters:
             tags:
               only: /.*/
-      - deploy:
+      - publish:
           requires:
-            - approve-deploy
+            - approve-publish
           filters:
             tags:
               only: /.*/
