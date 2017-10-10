@@ -1,5 +1,4 @@
 /* global window */
-/* eslint-disable no-underscore-dangle */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
