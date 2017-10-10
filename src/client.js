@@ -6,15 +6,15 @@ import Resolver from "./Resolver";
 export default function client(Loader) {
   return function clientDecorator(Component) {
     return class ClientResolver extends React.Component {
-      static displayName = `ClientResolver`
+      static displayName = `ClientResolver`;
 
       static childContextTypes = {
         resolver: PropTypes.instanceOf(Resolver),
-      }
+      };
 
       static contextTypes = {
         resolver: PropTypes.instanceOf(Resolver),
-      }
+      };
 
       constructor(props, context) {
         super(props, context);
