@@ -19,6 +19,7 @@ export default function client(Loader) {
       constructor(props, context) {
         super(props, context);
 
+        this.unmounted = false;
         this.enqueue = this.enqueue.bind(this);
         this.queue = [];
         this.state = {
@@ -28,10 +29,18 @@ export default function client(Loader) {
         };
       }
 
+      setAtomicState(...args) {
+        if (!this.unmounted) this.setState(...args);
+      }
+
       componentDidMount() {
-        this.setState({ server: false }, function() {
-          Promise.all(this.queue).then(() => this.setState({ loaded: true }));
+        this.setAtomicState({ server: false }, function() {
+          Promise.all(this.queue).then(() => this.setAtomicState({ loaded: true }));
         });
+      }
+
+      componentWillUnmount() {
+        this.unmounted = true;
       }
 
       enqueue(promise) {

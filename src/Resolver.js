@@ -91,6 +91,8 @@ export default class Resolver extends React.Component {
     this[HAS_RESOLVED] = false;
     this[IS_CLIENT] = false;
 
+    this.unmounted = false;
+
     this.state = this.computeState(this.props, {
       pending: {},
       resolved: this.cached() || {},
@@ -128,6 +130,14 @@ export default class Resolver extends React.Component {
     this[IS_CLIENT] = true;
   }
 
+  componentWillUnmount() {
+    this.unmounted = true;
+  }
+
+  setAtomicState(...args) {
+    if (!this.unmounted) this.setState(...args);
+  }
+
   componentWillReceiveProps(nextProps) {
     const cleanState = {
       pending: {},
@@ -142,7 +152,7 @@ export default class Resolver extends React.Component {
       resolved: { ...this.state.resolved, ...resolved },
     };
 
-    this.setState(nextState);
+    this.setAtomicState(nextState);
   }
 
   computeState(thisProps, nextState) {
@@ -279,7 +289,7 @@ export default class Resolver extends React.Component {
         resolved: { ...state.resolved, ...resolved },
       };
 
-      this.setState(nextState);
+      this.setAtomicState(nextState);
     });
   }
 
