@@ -1,4 +1,4 @@
-# React Resolver ![https://img.shields.io/npm/v/react-resolver.svg](https://img.shields.io/npm/v/react-resolver.svg?style=flat-square) [![](https://img.shields.io/github/issues-raw/ericclemmons/react-resolver.svg?style=flat-square)](https://github.com/ericclemmons/react-resolver/issues) [![](https://img.shields.io/travis/ericclemmons/react-resolver/master.svg?style=flat-square)](https://travis-ci.org/ericclemmons/react-resolver) [![](https://img.shields.io/david/ericclemmons/react-resolver.svg?style=flat-square)](https://david-dm.org/ericclemmons/react-resolver#info=dependencies)
+# React Resolver [![CircleCI](https://circleci.com/gh/a-ignatov-parc/react-resolver.svg?style=svg)](https://circleci.com/gh/a-ignatov-parc/react-resolver)
 
 > Async-rendering & data-fetching for universal React applications.
 
@@ -9,17 +9,16 @@ For example, the following will load & provide `this.props.user` for the
 `UserProfile` component:
 
 ```js
-import { resolve } from "react-resolver";
+import { resolve } from '@a-ignatov-parc/react-resolver';
 
-@resolve("user", function(props) {
-  return http.get(`/api/users/${props.params.userId}`);
-})
-class UserProfile extends React.Component {
-  render() {
-    const { user } = this.props;
+function UserProfile(props) {
+    const { user } = props;
     ...
-  }
 }
+
+const withResolver = resolve('user', props => http.get(`/api/users/${props.params.userId}`));
+
+export default withResolver(UserProfile);
 ```
 
 This is the equivalent to asynchronously loading `user` and providing it to
@@ -31,10 +30,7 @@ the component as if it were provided directly:
 
 This makes components _pure_, _stateless_, and _easy to test_ as a result.
 
-[![](https://img.shields.io/badge/slack-@react--resolver-61DAFB.svg?style=flat-square)](http://www.reactiflux.com)
-[![](https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square)](https://gitter.im/ericclemmons/react-resolver?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-- - -
+---
 
 ### Installation
 
@@ -42,7 +38,7 @@ _For environments that don't have native `Promise` support,
 install [ES6 Promise](https://github.com/jakearchibald/es6-promise)._
 
 ```bash
-$ npm install --save react-resolver
+$ npm install --save @a-ignatov-parc/react-resolver
 ```
 
 _For React v0.13 support, install [v2.x.x](https://github.com/ericclemmons/react-resolver/tree/v2.0.5)._
