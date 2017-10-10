@@ -1,5 +1,6 @@
-import * as index from "..";
 import assert from "assert";
+
+import * as index from "../src";
 
 describe("Resolver", function() {
   describe("exports", function() {

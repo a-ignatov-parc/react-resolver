@@ -2,7 +2,8 @@ import React from "react";
 import assert from "assert";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { resolve, Resolver } from "..";
+import Resolver from "../src/Resolver";
+import resolve from "../src/resolve";
 
 const Test = resolve("resolved", ({ actual }) => actual)(props => {
   const {
@@ -13,9 +14,7 @@ const Test = resolve("resolved", ({ actual }) => actual)(props => {
   assert.equal(resolved, expected);
 
   return (
-    <pre>
-      {resolved}
-    </pre>
+    <pre>{resolved}</pre>
   );
 });
 
@@ -33,8 +32,9 @@ describe("resolve HOC", function() {
             expected="scalar"
           />
         ))
-        .then(({ data }) => {
+        .then(({ data, Resolved }) => {
           assert.deepEqual(data, { '.0.0': { resolved: 'scalar' } });
+          assert.equal(renderToStaticMarkup(<Resolved />), '<pre>scalar</pre>');
         });
     });
 
@@ -57,8 +57,9 @@ describe("resolve HOC", function() {
             expected="promise"
           />
         ))
-        .then(({ data }) => {
+        .then(({ data, Resolved }) => {
           assert.deepEqual(data, { '.0.0': { resolved: 'promise' } });
+          assert.equal(renderToStaticMarkup(<Resolved />), '<pre>promise</pre>');
         });
     });
 
@@ -85,8 +86,9 @@ describe("resolve HOC", function() {
             expected="thenable"
           />
         ))
-        .then(({ data }) => {
+        .then(({ data, Resolved }) => {
           assert.deepEqual(data, { '.0.0': { resolved: 'thenable' } });
+          assert.equal(renderToStaticMarkup(<Resolved />), '<pre>thenable</pre>');
         });
     });
 

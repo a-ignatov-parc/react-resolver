@@ -93,9 +93,11 @@ export default class Resolver extends React.Component {
 
     this.unmounted = false;
 
+    const resolved = this.cached() || {};
+
     this.state = this.computeState(this.props, {
       pending: {},
-      resolved: this.cached() || {},
+      resolved,
     });
 
     if (this.isPending(this.state)) {
@@ -103,6 +105,13 @@ export default class Resolver extends React.Component {
       this[HAS_RESOLVED] = false;
     } else {
       this[HAS_RESOLVED] = true;
+
+      if (Object.keys(resolved).length) {
+        this.onResolve({
+          id: this[ID],
+          resolved,
+        });
+      }
     }
   }
 
