@@ -1,5 +1,5 @@
-import assert from "assert";
 import React from "react";
+import assert from "assert";
 import { renderToStaticMarkup } from "react-dom/server";
 
 import { resolve, Resolver } from "..";
@@ -26,25 +26,40 @@ describe("resolve HOC", function() {
 
   context("with a scalar", function() {
     it("resolves", function() {
-      return Resolver.resolve(() => <Test actual="scalar" expected="scalar" />);
+      return Resolver
+        .resolve(() => (
+          <Test
+            actual="scalar"
+            expected="scalar"
+          />
+        ))
+        .then(({ data }) => {
+          assert.deepEqual(data, { '.0.0': { resolved: 'scalar' } });
+        });
     });
 
     it("is synchronous", function() {
-      assert.equal(
-        renderToStaticMarkup(<Test actual="scalar" expected="scalar" />),
-        "<pre>scalar</pre>"
-      );
+      assert.equal(renderToStaticMarkup((
+        <Test
+          actual="scalar"
+          expected="scalar"
+        />
+      )), "<pre>scalar</pre>");
     });
   });
 
   context("with a Promise ", function() {
     it("resolves", function() {
-      return Resolver.resolve(() => (
-        <Test
-          actual={Promise.resolve("promise")}
-          expected="promise"
-        />
-      ));
+      return Resolver
+        .resolve(() => (
+          <Test
+            actual={Promise.resolve("promise")}
+            expected="promise"
+          />
+        ))
+        .then(({ data }) => {
+          assert.deepEqual(data, { '.0.0': { resolved: 'promise' } });
+        });
     });
 
     it("is asynchronous", function() {
@@ -57,18 +72,22 @@ describe("resolve HOC", function() {
     });
   });
 
-  context("with a thenable ", function() {
+  context("with a thenable", function() {
     const thenable = {
-      then: (resolve) => resolve("thenable"),
+      then: resolve => resolve("thenable"),
     };
 
     it("resolves", function() {
-      return Resolver.resolve(() => (
-        <Test
-          actual={thenable}
-          expected="thenable"
-        />
-      ));
+      return Resolver
+        .resolve(() => (
+          <Test
+            actual={thenable}
+            expected="thenable"
+          />
+        ))
+        .then(({ data }) => {
+          assert.deepEqual(data, { '.0.0': { resolved: 'thenable' } });
+        });
     });
 
     it("is asynchronous", function() {
