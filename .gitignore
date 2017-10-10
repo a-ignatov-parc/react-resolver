@@ -1,6 +1,4 @@
-_book
-*.min.*
-dist
-node_modules
+_book/
+dist/
+node_modules/
 npm-debug.log
-.idea

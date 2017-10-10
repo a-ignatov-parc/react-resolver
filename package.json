@@ -1,30 +1,23 @@
 {
-  "name": "react-resolver",
+  "name": "@a-ignatov-parc/react-resolver",
   "version": "3.1.0",
   "description": "Async-rendering & data-fetching for universal React applications",
   "main": "dist",
-  "directories": {
-    "test": "test"
+  "engines": {
+    "node": "^6.0.0",
+    "yarn": "^1.1.0"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:docs && npm run build:lib",
-    "build:docs": "gitbook build -g ericclemmons/react-resolver",
-    "build:lib": "babel src --out-dir dist",
-    "clean": "npm run clean:docs && npm run clean:lib",
-    "clean:docs": "rm -rf _book",
-    "clean:lib": "rm -rf dist",
-    "docs": "gitbook serve",
-    "docs:publish": "npm run clean:docs && npm run build:docs && cd _book && git init && git commit --allow-empty -m 'Update gitbook' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'Update gitbook' && git push --force git@github.com:ericclemmons/react-resolver gh-pages",
+    "install-deps": "npm run yarn:install && npm run yarn:install-deps",
+    "yarn:install": "npm i yarn@$npm_package_engines_yarn",
+    "yarn:install-deps": "yarn",
+    "dist": "babel src --out-dir dist",
     "lint": "eslint src test",
-    "prepublish": "npm run build:lib",
-    "preversion": "npm run clean",
-    "postversion": "git push origin master --tags && npm run docs:publish",
-    "test": "mocha",
-    "version": "npm run build"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ericclemmons/react-resolver.git"
+    "url": "git://github.com/a-ignatov-parc/react-resolver.git"
   },
   "keywords": [
     "async",
@@ -35,11 +28,14 @@
     "resolve"
   ],
   "author": "Eric Clemmons <eric@smarterspam.com>",
+  "contributors": [
+    "Anton Ignatov <abietis@gmail.com>"
+  ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ericclemmons/react-resolver/issues"
+    "url": "https://github.com/a-ignatov-parc/react-resolver/issues"
   },
-  "homepage": "https://github.com/ericclemmons/react-resolver",
+  "homepage": "https://github.com/a-ignatov-parc/react-resolver",
   "dependencies": {
     "prop-types": "^15.6.0"
   },
@@ -49,7 +45,11 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "eslint-config-future": "^2.1.1",
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
     "gitbook-cli": "^2.3.2",
     "gitbook-plugin-prism": "^2.3.0",
     "gitbook-plugin-todo": "^0.1.3",
@@ -60,5 +60,8 @@
   "peerDependencies": {
     "react": "^0.14.6 || ^15.0.0-0 || ^16.0.0",
     "react-dom": "^0.14.6 || ^15.0.0-0 || ^16.0.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
